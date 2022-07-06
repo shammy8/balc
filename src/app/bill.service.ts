@@ -99,7 +99,7 @@ export class BillService {
     editors[userUid] = true;
 
     const billCollection = collection(this.store, 'bills');
-    addDoc(billCollection, {
+    return addDoc(billCollection, {
       name: newBill.name,
       friends: newBill.friends,
       creator: userUid,
