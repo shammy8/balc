@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ClipboardModule } from '@angular/cdk/clipboard';
 
@@ -28,6 +29,9 @@ import { DividerModule } from 'primeng/divider';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ProgressBarModule } from 'primeng/progressbar';
 
+import { OrderModule } from 'ngx-order-pipe';
+import { EditableModule } from '@ngneat/edit-in-place';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
@@ -35,6 +39,7 @@ import { MainAppComponent } from './main-app/main-app.component';
 import { BillComponent } from './bill/bill.component';
 import { NoBillComponent } from './no-bill/no-bill.component';
 import { LoginComponent } from './login/login.component';
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
   declarations: [
@@ -43,11 +48,14 @@ import { LoginComponent } from './login/login.component';
     BillComponent,
     NoBillComponent,
     LoginComponent,
+    ItemComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
@@ -71,9 +79,8 @@ import { LoginComponent } from './login/login.component';
     DividerModule,
     ConfirmPopupModule,
     ProgressBarModule,
-    // ClipboardModule,
-    // OrderModule,
-    // EditableModule,
+    OrderModule,
+    EditableModule,
   ],
   providers: [ConfirmationService],
   bootstrap: [AppComponent],

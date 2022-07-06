@@ -1,1 +1,105 @@
-<p>bill works!</p>
+<ng-container *ngIf="billWithItems$ | async as billWithItems">
+  <div class="header">
+    <span class="bill-name">
+      {{ billWithItems.name }}
+    </span>
+    <p-splitButton
+      label="Add item"
+      icon="pi pi-plus"
+      [model]="menuItems"
+      (onClick)="openAddItemDialog()"
+      appendTo="body"
+    ></p-splitButton>
+  </div>
+
+  <div class="items">
+    <balc-item
+      *ngFor="let item of billWithItems.items | orderBy: order:reverse"
+      [item]="item"
+      (itemChange)="
+        itemsChange$.next({ item: $event, billId: billWithItems.id })
+      "
+      (deleteItem)="
+        deleteItem({
+          item: $event.item,
+          event: $event.event,
+          billId: billWithItems.id
+        })
+      "
+    >
+    </balc-item>
+  </div>
+
+  <p-dialog
+    header="Add Item"
+    [(visible)]="displayAddItemDialog"
+    [style]="{ width: '100%' }"
+    [modal]="true"
+    [dismissableMask]="true"
+  >
+    <!-- <bc-add-item
+      [users]="billWithItems.friends"
+      (addItem)="
+        billService.addItem($event, billWithItems.id); closeAddItemDialog()
+      "
+    ></bc-add-item> -->
+  </p-dialog>
+
+  <p-dialog
+    header="Add friends"
+    [(visible)]="displayAddFriendsDialog"
+    [style]="{ width: '100%' }"
+    [modal]="true"
+    [dismissableMask]="true"
+  >
+    <!-- <bc-add-friends
+      (addFriends)="
+        billService.addFriends($event, billWithItems.id);
+        closeAddFriendsDialog()
+      "
+    ></bc-add-friends> -->
+  </p-dialog>
+
+  <p-dialog
+    header="Add editors"
+    [(visible)]="displayAddEditorsDialog"
+    [style]="{ width: '100%' }"
+    [modal]="true"
+    [dismissableMask]="true"
+  >
+    <!-- <bc-add-editors
+      (addEditors)="
+        billService.addEditors($event, billWithItems.id, billWithItems.editors);
+        closeAddEditorsDialog()
+      "
+    ></bc-add-editors> -->
+  </p-dialog>
+
+  <p-dialog
+    header="Calculate"
+    [(visible)]="displayCalculateDialog"
+    [style]="{ width: '100%' }"
+    [modal]="true"
+    [dismissableMask]="true"
+  >
+    <!-- <bc-calculate
+      *ngIf="displayCalculateDialog"
+      [billWithItems]="billWithItems"
+    ></bc-calculate> -->
+  </p-dialog>
+
+  <p-dialog
+    header="Total spendings"
+    [(visible)]="displayTotalSpendingsDialog"
+    [style]="{ width: '100%' }"
+    [modal]="true"
+    [dismissableMask]="true"
+  >
+    <!-- <bc-total-spendings
+      *ngIf="displayTotalSpendingsDialog"
+      [billWithItems]="billWithItems"
+    ></bc-total-spendings> -->
+  </p-dialog>
+
+  <p-confirmPopup></p-confirmPopup>
+</ng-container>
