@@ -40,12 +40,12 @@
   </div>
   <div class="sharedBy-grid" formArrayName="sharedBy">
     <div
-      class="p-mt-1 p-mb-1 p-d-flex p-ai-center"
+      class="mt-1 mb-1 flex align-items-center"
       [ngClass]="{ 'justify-self-right': j % 2 === 1 }"
       *ngFor="let sharedBy of sharedByForm.controls; let j = index"
       [formGroupName]="j"
     >
-      <label class="p-mr-2" *ngIf="j % 2 === 1">{{
+      <label class="mr-2" *ngIf="j % 2 === 1">{{
         sharedBy.value.friend
       }}</label>
       <p-inputSwitch
@@ -54,7 +54,7 @@
         tooltipPosition="top"
         formControlName="settled"
       ></p-inputSwitch>
-      <label class="p-ml-2" *ngIf="j % 2 === 0">{{
+      <label class="ml-2" *ngIf="j % 2 === 0">{{
         sharedBy.value.friend
       }}</label>
     </div>

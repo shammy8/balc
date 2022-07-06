@@ -36,7 +36,7 @@
         (onClick)="router.navigate([bill.id]); displaySidebar = false"
       >
         <ng-template pTemplate="content">
-          <span class="p-text-bold">
+          <span class="font-bold">
             {{ bill.name }}
           </span>
         </ng-template>
@@ -48,7 +48,7 @@
     pButton
     (click)="displaySidebar = true"
     icon="pi pi-bars"
-    class="p-button-text p-button-lg p-d-flex p-mt-2 p-mr-2"
+    class="p-button-text p-button-lg flex mt-2 mr-2"
     style="margin-left: auto"
   ></button>
 
