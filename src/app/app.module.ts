@@ -8,10 +8,18 @@ import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
+import { MainAppComponent } from './main-app/main-app.component';
+import { BillComponent } from './bill/bill.component';
+import { NoBillComponent } from './no-bill/no-bill.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MainAppComponent,
+    BillComponent,
+    NoBillComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
