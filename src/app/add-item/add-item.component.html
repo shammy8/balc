@@ -1,0 +1,70 @@
+<form class="p-fluid" [formGroup]="form" (ngSubmit)="onAddItem()">
+  <div class="p-field">
+    <label for="description-input">Description</label>
+    <input
+      id="description-input"
+      pInputText
+      autofocus
+      formControlName="description"
+    />
+    <span *ngIf="form.get('description')?.errors?.maxlength" class="p-error">
+      Max of 25 characters
+    </span>
+  </div>
+  <div class="p-field">
+    <label for="cost-input">Cost</label> &nbsp;
+    <span class="font-light" style="font-size: 0.8rem"
+      >Try simple maths like "=(10/2)+1"</span
+    >
+    <input
+      id="cost-input"
+      (keyup.enter)="calculateCost($event)"
+      (blur)="calculateCost($event)"
+      formControlName="cost"
+      pInputText
+    />
+  </div>
+  <!-- <bc-input-number-calculator></bc-input-number-calculator> -->
+  <!-- <div class="p-field">
+        <label for="cost-input">Cost</label>
+        <p-inputNumber
+          id="cost-input"
+          formControlName="cost"
+          mode="currency"
+          currency="GBP"
+          [max]="1000000"
+          type="number"
+        ></p-inputNumber>
+      </div> -->
+  <div class="p-field">
+    <label for="paidBy-input">Paid by</label>
+    <p-dropdown
+      id="paidBy-input"
+      [options]="users"
+      appendTo="body"
+      formControlName="paidBy"
+      placeholder="Select the payer"
+    ></p-dropdown>
+  </div>
+  <div class="p-field">
+    <label for="sharedBy-input">Shared by</label>
+    <p-multiSelect
+      id="sharedBy-input"
+      [options]="users"
+      appendTo="body"
+      formControlName="sharedBy"
+      placeholder="Select who are to pay for this item"
+      [filter]="false"
+    ></p-multiSelect>
+  </div>
+  <div class="p-field">
+    <label for="date-input">Date</label>
+    <p-calendar
+      id="date-input"
+      appendTo="body"
+      formControlName="date"
+      dateFormat="dd/mm/yy"
+    ></p-calendar>
+  </div>
+  <button type="submit" pButton [disabled]="form.invalid">Add Item</button>
+</form>
