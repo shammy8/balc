@@ -40,6 +40,7 @@ import { BillComponent } from './bill/bill.component';
 import { NoBillComponent } from './no-bill/no-bill.component';
 import { LoginComponent } from './login/login.component';
 import { ItemComponent } from './item/item.component';
+import { AddBillComponent } from './add-bill/add-bill.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { ItemComponent } from './item/item.component';
     NoBillComponent,
     LoginComponent,
     ItemComponent,
+    AddBillComponent,
   ],
   imports: [
     BrowserModule,
