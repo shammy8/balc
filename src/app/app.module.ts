@@ -7,7 +7,11 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+import {
+  provideFirestore,
+  getFirestore,
+  enableIndexedDbPersistence,
+} from '@angular/fire/firestore';
 import { provideFunctions, getFunctions } from '@angular/fire/functions';
 
 import { ConfirmationService, SharedModule } from 'primeng/api';
@@ -70,7 +74,20 @@ import { TotalSpendingsComponent } from './total-spendings/total-spendings.compo
     ReactiveFormsModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
+    provideFirestore(() => {
+      const firestore = getFirestore();
+      enableIndexedDbPersistence(firestore)
+        .then(() => {
+          console.log('Successfully enabled persistence');
+        })
+        .catch((error) => {
+          console.error(
+            'Offline mode has errored, make sure the app is only opened in one tab. ' +
+              error
+          );
+        });
+      return firestore;
+    }),
     provideFunctions(() => getFunctions()),
     ClipboardModule,
     SharedModule,
