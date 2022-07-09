@@ -10,3 +10,7 @@ body {
   color: var(--text-color);
   font-family: var(--font-family);
 }
+
+button[pButton][type="submit"] {
+    margin-top: 10px;
+}
