@@ -45,6 +45,7 @@ import { AddItemComponent } from './add-item/add-item.component';
 import { AddFriendsComponent } from './add-friends/add-friends.component';
 import { AddEditorsComponent } from './add-editors/add-editors.component';
 import { CalculateComponent } from './calculate/calculate.component';
+import { TotalSpendingsComponent } from './total-spendings/total-spendings.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +60,7 @@ import { CalculateComponent } from './calculate/calculate.component';
     AddFriendsComponent,
     AddEditorsComponent,
     CalculateComponent,
+    TotalSpendingsComponent,
   ],
   imports: [
     BrowserModule,
