@@ -42,6 +42,7 @@ import { LoginComponent } from './login/login.component';
 import { ItemComponent } from './item/item.component';
 import { AddBillComponent } from './add-bill/add-bill.component';
 import { AddItemComponent } from './add-item/add-item.component';
+import { AddFriendsComponent } from './add-friends/add-friends.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { AddItemComponent } from './add-item/add-item.component';
     ItemComponent,
     AddBillComponent,
     AddItemComponent,
+    AddFriendsComponent,
   ],
   imports: [
     BrowserModule,
