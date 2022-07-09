@@ -43,6 +43,7 @@ import { ItemComponent } from './item/item.component';
 import { AddBillComponent } from './add-bill/add-bill.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { AddFriendsComponent } from './add-friends/add-friends.component';
+import { AddEditorsComponent } from './add-editors/add-editors.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { AddFriendsComponent } from './add-friends/add-friends.component';
     AddBillComponent,
     AddItemComponent,
     AddFriendsComponent,
+    AddEditorsComponent,
   ],
   imports: [
     BrowserModule,
