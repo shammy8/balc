@@ -26,6 +26,7 @@ export class BillComponent implements OnInit, OnDestroy {
   displayAddFriendsDialog = false;
   displayCalculateDialog = false;
   displayTotalSpendingsDialog = false;
+  displayUploadImageDialog = false;
 
   order: 'description' | 'cost' | 'date' = 'date';
   reverse = true;
@@ -59,6 +60,13 @@ export class BillComponent implements OnInit, OnDestroy {
   destroy = new Subject<void>();
 
   menuItems: MenuItem[] = [
+    {
+      label: 'Upload Bill',
+      icon: 'pi pi-camera',
+      command: (e) => {
+        this.openUploadBillDialog();
+      },
+    },
     {
       label: 'Calculate',
       icon: 'pi pi-wallet',
@@ -191,6 +199,14 @@ export class BillComponent implements OnInit, OnDestroy {
 
   closeTotalSpendingsDialog() {
     this.displayTotalSpendingsDialog = false;
+  }
+
+  openUploadBillDialog() {
+    this.displayUploadImageDialog = true;
+  }
+
+  closeUploadBillDialog() {
+    this.displayUploadImageDialog = false;
   }
 
   itemTrackBy(index: number, item: ItemWithId) {

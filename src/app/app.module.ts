@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { ClipboardModule } from '@angular/cdk/clipboard';
@@ -13,7 +14,12 @@ import {
   getFirestore,
   enableIndexedDbPersistence,
 } from '@angular/fire/firestore';
-import { provideFunctions, getFunctions } from '@angular/fire/functions';
+import {
+  provideFunctions,
+  getFunctions,
+  FunctionsModule,
+} from '@angular/fire/functions';
+import { provideStorage, getStorage } from '@angular/fire/storage';
 
 import { ConfirmationService, SharedModule } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -33,6 +39,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { DividerModule } from 'primeng/divider';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { FileUploadModule } from 'primeng/fileupload';
 
 import { OrderModule } from 'ngx-order-pipe';
 import { EditableModule } from '@ngneat/edit-in-place';
@@ -51,6 +58,7 @@ import { AddFriendsComponent } from './add-friends/add-friends.component';
 import { AddEditorsComponent } from './add-editors/add-editors.component';
 import { CalculateComponent } from './calculate/calculate.component';
 import { TotalSpendingsComponent } from './total-spendings/total-spendings.component';
+import { UploadImageComponent } from './upload-image/upload-image.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +74,7 @@ import { TotalSpendingsComponent } from './total-spendings/total-spendings.compo
     AddEditorsComponent,
     CalculateComponent,
     TotalSpendingsComponent,
+    UploadImageComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +82,7 @@ import { TotalSpendingsComponent } from './total-spendings/total-spendings.compo
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => {
@@ -90,6 +100,8 @@ import { TotalSpendingsComponent } from './total-spendings/total-spendings.compo
       return firestore;
     }),
     provideFunctions(() => getFunctions()),
+    FunctionsModule,
+    provideStorage(() => getStorage()),
     ClipboardModule,
     SharedModule,
     ButtonModule,
@@ -109,13 +121,14 @@ import { TotalSpendingsComponent } from './total-spendings/total-spendings.compo
     DividerModule,
     ConfirmPopupModule,
     ProgressBarModule,
+    FileUploadModule,
     OrderModule,
     EditableModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
   providers: [ConfirmationService],

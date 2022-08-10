@@ -101,5 +101,15 @@
     ></balc-total-spendings>
   </p-dialog>
 
+  <p-dialog
+    header="Upload Bill"
+    [(visible)]="displayUploadImageDialog"
+    [style]="{ width: '100%' }"
+    [modal]="true"
+    [dismissableMask]="true"
+  >
+    <balc-upload-image *ngIf="displayUploadImageDialog"></balc-upload-image>
+  </p-dialog>
+
   <p-confirmPopup></p-confirmPopup>
 </ng-container>

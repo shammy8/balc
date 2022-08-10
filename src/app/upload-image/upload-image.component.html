@@ -1,0 +1,11 @@
+<button (click)="getDownloadUrl()" pButton>Get download url</button>
+
+<!-- name="myfile[]" -->
+<!-- TODO file size? -->
+<!-- storage rules? -->
+<!-- this component needs http module, use a normal <input type="file"> instead? -->
+<p-fileUpload
+  (onSelect)="onSelect($event)"
+  accept=".jpg, .png, .pdf, .tiff, .html, .docx"
+></p-fileUpload> 
+
