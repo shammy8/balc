@@ -1,14 +1,15 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 
-// TODO only need this for one function
-// import {Client} from "@veryfi/veryfi-sdk"; // TODO try this instead
-// import * as Veryfi from "@veryfi/veryfi-sdk";
-const Client = require("@veryfi/veryfi-sdk");
-const path = require("path");
-const os = require("os");
+import * as path from "path";
+import * as os from "os";
+import * as fs from "fs";
 
+// TODO only need this for one function
+// import {Client} from "@veryfi/veryfi-sdk"; // These doesn't work
+// import * as Veryfi from "@veryfi/veryfi-sdk";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const Client = require("@veryfi/veryfi-sdk");
 
 admin.initializeApp();
 const store = admin.firestore();
@@ -23,7 +24,8 @@ export const userRegister = functions.auth.user().onCreate((user, context) => {
 
 export const processReceipt = functions.https.onCall(
     async (data) => {
-      // TODO put these somewhere safe, ie https://firebase.google.com/docs/functions/config-env?hl=en&authuser=0#secret-manager
+      // TODO put these somewhere safe
+      // ie https://firebase.google.com/docs/functions/config-env?hl=en&authuser=0#secret-manager
       const clientId = process.env.VERYFI_CLIENT_ID;
       const clientSecret = process.env.VERYFI_CLIENT_SECRET;
       const username= process.env.VERYFI_USERNAME;
@@ -40,19 +42,30 @@ export const processReceipt = functions.https.onCall(
         );
       }
 
-      // TODO get file type here and append to bottom
-      const tempFilePath = path.join(os.tmpdir(), `${data.fileName}.jpg`);
-      await storage.bucket().file(`veryfi-receipts/${data.fileName}`)
-          .download({destination: tempFilePath});
+      // TODO handle errors
 
-      // TODO delete receipts from storage and temp file
+      const tempFilePath = path.join(
+          os.tmpdir(),
+          `${data.fileName}.${data.fileExtension}`
+      );
 
-      const client = new Client(
+      const file = storage.bucket().file(`veryfi-receipts/${data.fileName}`);
+
+      await file.download({destination: tempFilePath});
+
+      const veryfiClient = new Client(
           clientId, clientSecret, username, apiKey
       );
-      return client.process_document(
-          tempFilePath, ["Grocery"], true
+      const veryfiDocument = await veryfiClient.process_document(
+          tempFilePath, ["Grocery"], true // TODO customise options in here
       );
+
+      fs.unlinkSync(tempFilePath); // delete temp file
+      await file.delete(); // delete from Firebase storage
+      // TODO do we need to await delete
+
+      // map veryfiDocument to properties we need before sending to front end
+      return veryfiDocument;
     }
 );
 
